@@ -1,5 +1,9 @@
 package com.psl.logic;
 
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Board {
@@ -29,18 +33,12 @@ public class Board {
     }
 
     private void addMinesToGraph(int minesAmount){
-        Random r = new Random();
-        boolean minesAdded = false;
 
-        for(int i = 0; i < minesAmount-1 && !minesAdded; i++) {
-            int xPosition = r.nextInt(height-1);
-            int yPosition = r.nextInt(width-1);
+        List<Pair<Integer, Integer>> positions = createPositionCombinatorics(minesAmount);
 
-            if(graphCells[xPosition][yPosition] != null){
-                ICell<Mine> mine = new Mine(xPosition, yPosition);
-                graphCells[xPosition][yPosition] = mine;
-                minesAdded = true;
-            }
+        for(int i = 0; i < positions.size(); i++) {
+            Mine mine = new Mine(positions.get(i).getKey(), positions.get(i).getValue());
+            graphCells[positions.get(i).getKey()][positions.get(i).getValue()] = mine;
         }
     }
 
@@ -49,7 +47,7 @@ public class Board {
         for(int i = 0; i < height; i++){
             String text = "";
             for(int j = 0; j < width; j++){
-                text += " "+graphCells[i][j].getState();
+                text += " "+graphCells[i][j].getStateCell();
             }
             System.out.println(text);
         }
@@ -67,7 +65,7 @@ public class Board {
                     Square square = (Square) graphCells[i][j];
                     if(indexHeight >= 0 && indexWidth >= 0 && indexWidth < width){
                         do {
-                            square.assignAdjacentsCells(graphCells[indexHeight][indexWidth]);
+                            square.assignAdjacentsSquares(graphCells[indexHeight][indexWidth]);
                             indexWidth++;
                         }while(indexWidth < width && indexWidth < (indexWidth+3));
                     }
@@ -75,10 +73,10 @@ public class Board {
 
                     //Add adjacent cells to the left and the right of the table
                     if((j-1)>=0){
-                        square.assignAdjacentsCells(graphCells[i][j-1]);
+                        square.assignAdjacentsSquares(graphCells[i][j-1]);
                     }
                     if((j+1) < width){
-                        square.assignAdjacentsCells(graphCells[i][j+1]);
+                        square.assignAdjacentsSquares(graphCells[i][j+1]);
                     }
 
                     //Add adjacent cells to the bottom of the table
@@ -86,12 +84,58 @@ public class Board {
                     indexWidth = j-1;
                     if(indexHeight < height && indexWidth >= 0 && indexWidth < width){
                         do {
-                            square.assignAdjacentsCells(graphCells[indexHeight][indexWidth]);
+                            square.assignAdjacentsSquares(graphCells[indexHeight][indexWidth]);
                             indexWidth++;
                         }while(indexWidth < width && indexWidth < (indexWidth+3));
                     }
                 }
             }
         }
+    }
+
+    public boolean isGameOver(int xPosition, int yPosition){
+        boolean gameOver = false;
+        if(graphCells[xPosition][yPosition] instanceof Mine){
+            gameOver = true;
+        }
+
+        return gameOver;
+    }
+
+    public void lostGame(){
+        for (int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                if(graphCells[i][j] instanceof Mine){
+                    Mine mine = (Mine)graphCells[i][j];
+                    mine.uncover();
+                }
+            }
+        }
+        displayBoard();
+        System.out.println("\n***************** GAME OVER ******************\n");
+        System.out.println("\nDeveloped by Jefry Cardona - Universidad Icesi");
+    }
+
+    private List<Pair<Integer, Integer>> createPositionCombinatorics(int minesAmount){
+        List<Pair<Integer, Integer>> positions = new ArrayList<Pair<Integer, Integer>>();
+        List<Pair<Integer, Integer>> positionsSelected = new ArrayList<Pair<Integer, Integer>>();
+        for (int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                Pair<Integer, Integer> pair = new Pair<Integer, Integer>(i, j);
+                positions.add(pair);
+            }
+        }
+        Random r = new Random();
+        for (int i = 0; i < minesAmount; i++) {
+            int index = r.nextInt(positions.size());
+            positionsSelected.add(positions.get(index));
+            positions.remove(index);
+        }
+        return positionsSelected;
+    }
+
+
+    public void amountMinesAround(int xPosition, int yPosition){
+        Square square = (Square)graphCells[xPosition][yPosition];
     }
 }

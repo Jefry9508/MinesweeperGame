@@ -32,7 +32,8 @@ public class Square implements ICell {
 
     }
 
-    public String getState() {
+    @Override
+    public String getStateCell() {
         return state;
     }
 
@@ -52,7 +53,15 @@ public class Square implements ICell {
         this.yPosition = yPosition;
     }
 
-    public void assignAdjacentsCells(ICell adjacentCell){
+    public void assignAdjacentsSquares(ICell adjacentCell){
         adjacentsCells.add(adjacentCell);
+    }
+
+    public void searchMinesAround(){
+
+    }
+
+    private int searchMinesAroundassistant(){
+        return 0;
     }
 }

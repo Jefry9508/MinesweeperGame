@@ -4,6 +4,6 @@ public interface ICell<T> {
 
     void uncover();
     void mark();
-    String getState();
+    String getStateCell();
 
 }

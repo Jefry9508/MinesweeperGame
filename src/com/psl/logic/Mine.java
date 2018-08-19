@@ -11,6 +11,7 @@ public class Mine implements ICell {
     private String state;
     private int xPosition;
     private int yPosition;
+    private boolean isVisited;
 
     public Mine(int newXPosition, int newYPosition){
         state = COVER;
@@ -20,15 +21,16 @@ public class Mine implements ICell {
 
     @Override
     public void uncover() {
-
+        this.state = MINE;
     }
 
     @Override
     public void mark() {
-
+        this.state = MARK;
     }
 
-    public String getState() {
+    @Override
+    public String getStateCell() {
         return state;
     }
 
@@ -46,5 +48,17 @@ public class Mine implements ICell {
 
     public void setyPosition(int yPosition) {
         this.yPosition = yPosition;
+    }
+
+    public int getyPosition() {
+        return yPosition;
+    }
+
+    public boolean isVisited() {
+        return this.isVisited;
+    }
+
+    public void setVisited(boolean visited) {
+        isVisited = visited;
     }
 }

@@ -12,7 +12,7 @@ public class Game {
         newGame.startGame();
     }
 
-    public void startGame(){
+    private void startGame(){
         System.out.println("*************************** Welcome to Minesweeper Game ***************************\n");
         System.out.println("Please, write 3 numbers, the first two numbers are the height and width of the board \n" +
                 "and the last is the mine amount. Separate each number with blank spaces\n");
@@ -26,18 +26,29 @@ public class Game {
         playRoundGame();
     }
 
-    public void playRoundGame(){
+    private void playRoundGame(){
         System.out.println("");
         System.out.println("At each round, you can select one cell by entering its row and column index and an\n" +
                 "action, either U (uncover) or M (mark). (e.g. '4 6 U' or '4 6 M').\n");
         System.out.println("Let's go play!\n");
 
         Scanner scanner = new Scanner(System.in);
-        String[] input = scanner.nextLine().split(" ");
-        String xPosition = input[0];
-        String yPosition = input[1];
-        String action = input[2];
+        boolean gameOver = false;
+        do {
+            String[] input = scanner.nextLine().split(" ");
+            int xPosition = Integer.parseInt(input[0]);
+            int yPosition = Integer.parseInt(input[1]);
+            String action = input[2].toUpperCase();
+            if (action.equals("U")) {
+                if (board.isGameOver(xPosition, yPosition)) {
+                    board.lostGame();
+                    gameOver = true;
+                }
+            }else{
 
+            }
+        }while (!gameOver);
 
     }
+
 }
