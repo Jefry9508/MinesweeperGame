@@ -5,7 +5,7 @@
  */
 package com.psl.logic;
 
-public interface ICell<T> {
+public interface ICell {
 
     //METHODS
 
