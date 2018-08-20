@@ -83,7 +83,7 @@ public class Board {
      * Method that shows the current state of the board in the game.
      */
     public void displayBoard() {
-
+        System.out.println("");
         for (int i = 0; i < height; i++) {
             String text = "";
             for (int j = 0; j < width; j++) {
@@ -91,6 +91,7 @@ public class Board {
             }
             System.out.println(text);
         }
+        System.out.println("");
     }
 
     /**
