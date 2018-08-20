@@ -56,7 +56,7 @@ public class Board {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (graphCells[i][j] == null) {
-                    ICell<Square> square = new Square(i, j);
+                    Square square = new Square(i, j);
                     graphCells[i][j] = square;
                 }
             }
