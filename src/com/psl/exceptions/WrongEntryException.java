@@ -9,9 +9,9 @@ public class WrongEntryException extends Exception {
 
     private String message;
 
-    public WrongEntryException() {
-        super("Invalid input");
-        this.message = "Invalid input";
+    public WrongEntryException(String msg) {
+        super(msg);
+        this.message = msg;
     }
 
     @Override

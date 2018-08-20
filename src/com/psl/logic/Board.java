@@ -180,10 +180,19 @@ public class Board {
     }
 
     public boolean isBlankCell(int xPosition, int yPosition){
-        if(graphCells[xPosition][yPosition].getStateCell().equals(Square.EMPTY)){
+        String state = graphCells[xPosition][yPosition].getStateCell();
+        if((state.equals(Square.EMPTY) || Integer.getInteger(state) == null) && !state.equals(Square.COVER)){
             return true;
         }else{
             return false;
         }
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }
