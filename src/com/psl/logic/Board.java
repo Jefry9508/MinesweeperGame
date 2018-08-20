@@ -13,10 +13,31 @@ import java.util.Random;
 
 public class Board {
 
+    //ATTRIBUTES
+
+    /**
+     * Graph of the mines and squares, is the board structure.
+     */
     private ICell[][] graphCells;
+
+    /**
+     * Number of rows on the board
+     */
     private int height;
+
+    /**
+     * Number of columns on the board
+     */
     private int width;
 
+    //METHODS
+
+    /**
+     * Constructor of the board.
+     * @param newHeight, number of rows.
+     * @param newWidth, number of columns.
+     * @param minesAmount, amount of mines on the board.
+     */
     public Board(int newHeight, int newWidth, int minesAmount){
         height = newHeight;
         width = newWidth;
@@ -24,6 +45,10 @@ public class Board {
         buildGraph(minesAmount);
     }
 
+    /**
+     * Builds the graph by adding the mines and squares and assigning adjacent cells for each node.
+     * @param minesAmount, amount of mines on the board.
+     */
     private void buildGraph(int minesAmount){
         addMinesToGraph(minesAmount);
         for (int i = 0; i < height; i++){
@@ -37,6 +62,10 @@ public class Board {
         assignAdjacentsCells();
     }
 
+    /**
+     * Method that adds mines randomly to the graph in different positions.
+     * @param minesAmount, amount of mines on the board.
+     */
     private void addMinesToGraph(int minesAmount){
 
         List<Pair<Integer, Integer>> positions = createPositionCombinatorics(minesAmount);
@@ -47,6 +76,9 @@ public class Board {
         }
     }
 
+    /**
+     * Method that shows the current state of the board in the game.
+     */
     public void displayBoard(){
 
         for(int i = 0; i < height; i++){
@@ -58,6 +90,9 @@ public class Board {
         }
     }
 
+    /**
+     * Method that adds the adjacents cells to the squares on the board.
+     */
     private void assignAdjacentsCells(){
 
         for (int i = 0; i < height; i++){
@@ -102,6 +137,12 @@ public class Board {
         }
     }
 
+    /**
+     * Method that allows to know if the user has lost the game when he/she selected a mine on the board.
+     * @param xPosition, row number on the board.
+     * @param yPosition, column number on the board.
+     * @return boolean, true if the game is over or true in opposite case.
+     */
     public boolean isGameOver(int xPosition, int yPosition){
         boolean gameOver = false;
         if(graphCells[xPosition][yPosition] instanceof Mine){
@@ -111,6 +152,9 @@ public class Board {
         return gameOver;
     }
 
+    /**
+     * Method that uncovers the mines switching the states of the cells that contain mines.
+     */
     public void lostGame(){
         for (int i = 0; i < height; i++){
             for (int j = 0; j < width; j++){
@@ -125,6 +169,11 @@ public class Board {
         System.out.println("\nDeveloped by Jefry Cardona - Universidad Icesi");
     }
 
+    /**
+     * Method that creates all positions of the matrix that represents to the graph.
+     * @param minesAmount, amount of mines on the board.
+     * @return List<Pair<Integer, Integer>>, list with a tuple that contain the  position on the X and Y axis.
+     */
     private List<Pair<Integer, Integer>> createPositionCombinatorics(int minesAmount){
         List<Pair<Integer, Integer>> positions = new ArrayList<Pair<Integer, Integer>>();
         List<Pair<Integer, Integer>> positionsSelected = new ArrayList<Pair<Integer, Integer>>();
@@ -144,6 +193,11 @@ public class Board {
     }
 
 
+    /**
+     * Method that allows know the amount of mines around in the current cell.
+     * @param xPosition, position on the X axis.
+     * @param yPosition, position on the Y axis.
+     */
     public void amountMinesAround(int xPosition, int yPosition){
         //System.out.println("Paso 1");
         Square square = (Square)graphCells[xPosition][yPosition];
@@ -153,11 +207,23 @@ public class Board {
         displayBoard();
     }
 
+
+    /**
+     * Method the allows mark with a flag the cell which the user beliaves there is a mine.
+     * @param xPosition, position on the X axis.
+     * @param yPosition, position on the Y axis.
+     */
     public void markCell(int xPosition, int yPosition){
         graphCells[xPosition][yPosition].mark();
         displayBoard();
     }
 
+
+    /**
+     * Method that allows know if the user won the game validating that all cells with mines are marked with the flag.
+     * @param minesAmount, amount of mines on the board.
+     * @return boolean, true if the user won the game or false in opposite case.
+     */
     public boolean winGame(int minesAmount){
         boolean winner = false;
         int markedMines = 0;
@@ -179,6 +245,13 @@ public class Board {
         return winner;
     }
 
+
+    /**
+     * Method that checks if the cell given by the coordinates passed by parameter is uncovered.
+     * @param xPosition, position on the X axis.
+     * @param yPosition, position on the Y axis.
+     * @return boolean, true if the cell is uncovered or fase in opposite case.
+     */
     public boolean isBlankCell(int xPosition, int yPosition){
         String state = graphCells[xPosition][yPosition].getStateCell();
         if((state.equals(Square.EMPTY) || Integer.getInteger(state) == null) && !state.equals(Square.COVER)){
@@ -188,10 +261,18 @@ public class Board {
         }
     }
 
+    /**
+     * Method that gives the number rows of the board.
+     * @return int, amount of rows on the board.
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Method that gives the number columns of the board.
+     * @return int, amount of columns on the board.
+     */
     public int getWidth() {
         return width;
     }

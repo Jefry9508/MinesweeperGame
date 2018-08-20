@@ -12,13 +12,27 @@ import java.util.Scanner;
 
 public class Game {
 
+    //ATTRIBUTES
+
+    /**
+     * Relationship to the Board class
+     */
     private Board board;
 
+    /**
+     * Method that starts the execution of the game. It is the entry point of the application
+     * @param args, necessary arguments for start the execution
+     */
     public static void main(String[] args) {
         Game newGame = new Game();
         newGame.startGame();
     }
 
+    //METHODS
+
+    /**
+     * Method that builds the internal structure of the minesweeper and starts the game
+     */
     private void startGame(){
         System.out.println("*************************** Welcome to Minesweeper Game ***************************\n");
         System.out.println("Please, write 3 numbers, the first two numbers are the height and width of the board \n" +
@@ -53,6 +67,12 @@ public class Game {
         }while (!finished);
     }
 
+
+    /**
+     * Method that executes each of the rounds in the game.
+     * @param minesAmount, is the amount of the mines on the board.
+     * @throws Exception, if the user select a cell uncover or execute an invalid action.
+     */
     private void playRoundGame(int minesAmount) throws Exception{
 
         Scanner scanner = new Scanner(System.in);
