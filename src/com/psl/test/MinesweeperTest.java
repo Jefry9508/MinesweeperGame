@@ -1,5 +1,5 @@
 /**
- * Minesweeper Game PSL
+ * Minesweeper Game PSL-Challenge
  *
  * @Author Jefry Cardona
  */

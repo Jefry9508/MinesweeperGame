@@ -1,5 +1,5 @@
 /**
- * Minesweeper Game PSL
+ * Minesweeper Game PSL-Challenge
  *
  * @Author Jefry Cardona
  */
@@ -7,7 +7,7 @@ package com.psl.logic;
 
 import com.psl.exceptions.WrongEntryException;
 
-import java.io.IOException;
+
 import java.util.Scanner;
 
 public class Game {

@@ -1,5 +1,5 @@
 /**
- * Minesweeper Game PSL
+ * Minesweeper Game PSL-Challenge
  *
  * @Author Jefry Cardona
  */
@@ -15,15 +15,11 @@ public class Square implements ICell {
     public static final String MARK = "P";
 
     private String state;
-    private int xPosition;
-    private int yPosition;
     private List<ICell> adjacentsCells;
     private boolean isVisited;
 
     public Square(int newXPosition, int newYPosition) {
         state = COVER;
-        xPosition = newXPosition;
-        yPosition = newYPosition;
         adjacentsCells = new ArrayList<ICell>();
     }
 
@@ -44,18 +40,6 @@ public class Square implements ICell {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public int getxPosition() {
-        return xPosition;
-    }
-
-    public void setxPosition(int xPosition) {
-        this.xPosition = xPosition;
-    }
-
-    public void setyPosition(int yPosition) {
-        this.yPosition = yPosition;
     }
 
     public void assignAdjacentsSquares(ICell adjacentCell){
