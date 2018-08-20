@@ -15,15 +15,51 @@ import static org.junit.Assert.assertTrue;
 
 public class MinesweeperTest {
 
+    //CONSTANTS ATTRIBUTES
+
+    /**
+     * Represent amount of rows on the board.
+     */
     public final static int ROWS = 8;
+
+    /**
+     * Represent amount of columns on the board.
+     */
     public final static int COLUMNS = 8;
+
+    /**
+     * Represent amount of mines on the board.
+     */
     public final static int MINES_AMOUNT = 4;
 
+    //ATTRIBUTES
+
+    /**
+     * Relationship with Board class.
+     */
     private Board board;
+
+    /**
+     * Represent amount of rows on the board.
+     */
     private int height;
+
+    /**
+     * Represent amount of columns on the board.
+     */
     private int width;
+
+    /**
+     * Represent amount of mines on the board.
+     */
     private int minesAmount;
 
+
+    //METHODS
+
+    /**
+     * A method of creating a controlled scenario for testing.
+     */
     private void setupStage() {
         this.height = ROWS;
         this.width = COLUMNS;
@@ -31,6 +67,10 @@ public class MinesweeperTest {
         this.board = new Board(this.height, this.width, this.minesAmount);
     }
 
+    /**
+     * Method that marks a certain number of cells passed per parameter.
+     * @param amountCells, amount of cells to mark.
+     */
     private void markCells(int amountCells){
         ICell[][] cells = board.getGraphCells();
         for(int i = 0; i < height && amountCells > 0; i++){
@@ -41,11 +81,19 @@ public class MinesweeperTest {
         }
     }
 
+    /**
+     * Method that marks a cell passed per parameter.
+     * @param xPosition, position on the X axis.
+     * @param yPosition, position on the Y axis.
+     */
     private void markCell(int xPosition, int yPosition){
         ICell[][] cells = board.getGraphCells();
         cells[xPosition][yPosition].mark();
     }
 
+    /**
+     * Verifies that the user not won if he/she marked more cell that mines.
+     */
     @Test
     public void testUserNotWonMoreMinesMark() {
         setupStage();
@@ -53,6 +101,9 @@ public class MinesweeperTest {
         assertFalse("Error in the method WinGame of Board class.", board.winGame(minesAmount));
     }
 
+    /**
+     * Verifies that the user loses the game when he/she selected a cell that contain a miine.
+     */
     @Test
     public void testGameOver(){
         setupStage();
@@ -71,6 +122,10 @@ public class MinesweeperTest {
         assertFalse("Error in method isGameOver", gameOver);
     }
 
+    /**
+     * Verifies that the user win the game if and only of he/she marked all cells that contain mines.
+     */
+    @Test
     public void testWinGame(){
         setupStage();
         ICell[][] cells = board.getGraphCells();
