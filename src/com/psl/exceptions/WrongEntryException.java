@@ -19,6 +19,7 @@ public class WrongEntryException extends Exception {
 
     /**
      * Constructor of the WrongEntryException class.
+     *
      * @param msg, related information to the exception.
      */
     public WrongEntryException(String msg) {
@@ -28,6 +29,7 @@ public class WrongEntryException extends Exception {
 
     /**
      * Method that gives the information of the exception.
+     *
      * @return
      */
     @Override

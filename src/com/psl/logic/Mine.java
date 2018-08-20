@@ -5,8 +5,6 @@
  */
 package com.psl.logic;
 
-import java.util.List;
-
 public class Mine implements ICell {
 
     //CONSTANTS ATTRIBUTES
@@ -39,10 +37,11 @@ public class Mine implements ICell {
 
     /**
      * Constructor of the Minie class.
+     *
      * @param newXPosition, position on the X axis on the board.
      * @param newYPosition, position on the Y axis on the board.
      */
-    public Mine(int newXPosition, int newYPosition){
+    public Mine(int newXPosition, int newYPosition) {
         state = COVER;
     }
 
@@ -72,6 +71,7 @@ public class Mine implements ICell {
 
     /**
      * Method for change the current state of the mine.
+     *
      * @param state, new state for the mine.
      */
     public void setStateCell(String state) {

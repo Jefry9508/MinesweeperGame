@@ -21,6 +21,7 @@ public interface ICell<T> {
 
     /**
      * Method that allows know the current state of the cell.
+     *
      * @return
      */
     String getStateCell();
