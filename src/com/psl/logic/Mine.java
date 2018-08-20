@@ -1,3 +1,8 @@
+/**
+ * Minesweeper Game PSL
+ *
+ * @Author Jefry Cardona
+ */
 package com.psl.logic;
 
 import java.util.List;
@@ -11,7 +16,6 @@ public class Mine implements ICell {
     private String state;
     private int xPosition;
     private int yPosition;
-    private boolean isVisited;
 
     public Mine(int newXPosition, int newYPosition){
         state = COVER;
@@ -34,7 +38,7 @@ public class Mine implements ICell {
         return state;
     }
 
-    public void setState(String state) {
+    public void setStateCell(String state) {
         this.state = state;
     }
 
@@ -52,13 +56,5 @@ public class Mine implements ICell {
 
     public int getyPosition() {
         return yPosition;
-    }
-
-    public boolean isVisited() {
-        return this.isVisited;
-    }
-
-    public void setVisited(boolean visited) {
-        isVisited = visited;
     }
 }

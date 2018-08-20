@@ -1,3 +1,8 @@
+/**
+ * Minesweeper Game PSL
+ *
+ * @Author Jefry Cardona
+ */
 package com.psl.logic;
 
 import javafx.util.Pair;
@@ -63,12 +68,14 @@ public class Board {
                     int indexHeight = i-1;
                     int indexWidth = j-1;
                     Square square = (Square) graphCells[i][j];
-                    if(indexHeight >= 0 && indexWidth >= 0 && indexWidth < width){
-                        do {
+
+                    do {
+                        if(indexHeight >= 0 && indexWidth >= 0 && indexWidth < width) {
                             square.assignAdjacentsSquares(graphCells[indexHeight][indexWidth]);
-                            indexWidth++;
-                        }while(indexWidth < width && indexWidth < (indexWidth+3));
-                    }
+                        }
+                        indexWidth++;
+                    }while(indexWidth < width && indexWidth < (j+2));
+
 
 
                     //Add adjacent cells to the left and the right of the table
@@ -82,12 +89,14 @@ public class Board {
                     //Add adjacent cells to the bottom of the table
                     indexHeight = i+1;
                     indexWidth = j-1;
-                    if(indexHeight < height && indexWidth >= 0 && indexWidth < width){
-                        do {
+
+                    do {
+                        if(indexHeight < height && indexWidth >= 0 && indexWidth < width) {
                             square.assignAdjacentsSquares(graphCells[indexHeight][indexWidth]);
-                            indexWidth++;
-                        }while(indexWidth < width && indexWidth < (indexWidth+3));
-                    }
+                        }
+                        indexWidth++;
+                    }while(indexWidth < width && indexWidth < (j+2));
+
                 }
             }
         }
@@ -136,6 +145,45 @@ public class Board {
 
 
     public void amountMinesAround(int xPosition, int yPosition){
+        //System.out.println("Paso 1");
         Square square = (Square)graphCells[xPosition][yPosition];
+        //System.out.println("Paso 2");
+        square.searchMinesAround();
+        //System.out.println("Paso 3");
+        displayBoard();
+    }
+
+    public void markCell(int xPosition, int yPosition){
+        graphCells[xPosition][yPosition].mark();
+        displayBoard();
+    }
+
+    public boolean winGame(int minesAmount){
+        boolean winner = false;
+        int markedMines = 0;
+        int markedSquares = 0;
+
+        for (int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                if (graphCells[i][j].getStateCell().equals(Mine.MARK) && graphCells[i][j] instanceof Mine) {
+                    markedMines++;
+                }
+                if(graphCells[i][j].getStateCell().equals(Square.MARK) && graphCells[i][j] instanceof Square){
+                    markedSquares++;
+                }
+            }
+        }
+        if((markedMines-markedSquares) == minesAmount){
+            winner = true;
+        }
+        return winner;
+    }
+
+    public boolean isBlankCell(int xPosition, int yPosition){
+        if(graphCells[xPosition][yPosition].getStateCell().equals(Square.EMPTY)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
